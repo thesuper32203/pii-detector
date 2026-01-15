@@ -1,0 +1,5 @@
+{
+  "task": "personal-information",
+  "model": "iiiorg/piiranha-v1-detect-personal-information",
+  "tokenizer": "token-classification"
+}
