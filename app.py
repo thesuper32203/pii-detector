@@ -24,18 +24,21 @@ config = load_config("config.json")
 pii = initialize_pipeline(config)
 text = "My name is John Doe. Email: john.doe@gmail.com. Phone: (212) 555-0199."
 results = pii(text)
-for r in results:
-    if r["score"] > 0.65:
-        #print(f"Token: {r}")
-        start = int(json.dumps(r["start"]))
-        end = int(json.dumps(r["end"]))
-        entity_group = json.dumps(r["entity_group"])
-        print(text)
-        text = text[:start] + entity_group + text[end:]
-        print(text[start:end])
-        #print(f"Before tokenization\n {text}")
-        #text[start:end] = entity_group
-        #print(f"After tokenization\n {text}")
+print(f"Processing: {text}")
+print(f"Results: {results}")
+shift = 0
+filtered = [result for result in results if float(result["score"]) > 0.55]
+for r in filtered:
+    entity_group = r["entity_group"]
+    start = int(r["start"]) + 1
+    end = int(r["end"])
+
+    if r["score"] > 0.55:
+        text = text[:start+shift] + entity_group +text[end+shift:]
+        shift += len(entity_group) - (end - start)
+    print(f"Result: {text}")
+
+
 @app.route("/detect", methods=["POST"])
 def detect_pii():
     data = request.json
