@@ -2,9 +2,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Text, DateTime, func, ForeignKey, String, Float, Integer
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
+from database_init import Base
 
-class Base(DeclarativeBase):
-    pass
 
 class CaseRow(Base):
     __tablename__ = "CaseRow"
