@@ -20,8 +20,8 @@ class CaseRepository:
                 case_id=case.case_id,
                 token=m["token"],
                 entity_type=m["entity_group"],
-                original_value=m["value"],
-                score=m.get("score"),
+                original_value=case.original_text,
+                score=float(m.get("score")),
                 start=m.get("start"),
                 end=m.get("end"),
             ))

@@ -28,3 +28,4 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine,
 )
+Base.metadata.create_all(bind=engine)

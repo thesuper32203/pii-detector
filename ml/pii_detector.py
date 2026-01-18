@@ -15,7 +15,7 @@ class PiiDetector:
         entities = self.detect(text)
         return self.filter_entities(entities, threshold)
 
-    def tokenize(self, entities: list[dict],text: str) -> str:
+    def tokenize(self, entities: list[dict],text: str):
         # Step 1: assign counters LEFT -> RIGHT (natural order)
         entities_lr = sorted(entities, key=lambda e: e["start"])
         counters = {}
@@ -33,8 +33,9 @@ class PiiDetector:
             end = int(e["end"])
             start, end = clean_span(text, start, end)
             text = text[:start] + e["token"] + text[end:]
-
-        return text
+        tokenized_text = text
+        sorted_entities = entities_rl.copy()
+        return tokenized_text, sorted_entities
 
 def clean_span(text, start, end):
     # Trim leading spaces

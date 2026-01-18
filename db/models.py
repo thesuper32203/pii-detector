@@ -2,11 +2,12 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Text, DateTime, func, ForeignKey, String, Float, Integer
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
-from database_init import Base
+from .database_init import Base
+
 
 
 class CaseRow(Base):
-    __tablename__ = "CaseRow"
+    __tablename__ = "case_row"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     owner_id: Mapped[str | None] = mapped_column(nullable=True)
@@ -18,10 +19,10 @@ class CaseRow(Base):
 
 
 class PiiMappingRow(Base):
-    table_name = "PiiMappingRow"
+    __tablename__ = "pii_mapping_row"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    case_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("cases.id"), index=True)
+    case_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("case_row.id"), index=True)
 
     token: Mapped[str] = mapped_column(String(64), nullable=False)  # {{EMAIL_1}}
     entity_type: Mapped[str] = mapped_column(String(32), nullable=False)  # EMAIL
