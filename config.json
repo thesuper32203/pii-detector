@@ -1,5 +1,6 @@
 {
-  "task": "personal-information",
+  "task": "token-classification",
   "model": "iiiorg/piiranha-v1-detect-personal-information",
-  "tokenizer": "token-classification"
+  "tokenizer": "iiiorg/piiranha-v1-detect-personal-information",
+  "aggregation_strategy":"simple"
 }
