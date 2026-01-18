@@ -1,11 +1,14 @@
 from transformers import pipeline
 from functools import lru_cache
 import json
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent  # project root
+CONFIG_PATH = BASE_DIR / "facehugging" / "config.json"
 
 # Function to load configuration from JSON file
-def load_config(config_path):
-    with open(config_path, "r") as f:
+def load_config():
+    with open(CONFIG_PATH, "r") as f:
         return json.load(f)
 
 # Function to initialize the hugging face pipeline
@@ -20,5 +23,5 @@ def initialize_pipeline(config_pii):
 
 @lru_cache(maxsize=1)
 def load_model():
-    config = load_config("facehuggingface/config.json")
+    config = load_config()
     return initialize_pipeline(config)
