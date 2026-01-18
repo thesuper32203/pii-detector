@@ -20,5 +20,5 @@ def initialize_pipeline(config_pii):
 
 @lru_cache(maxsize=1)
 def load_model():
-    config = load_config("facehugging/config.json")
+    config = load_config("facehuggingface/config.json")
     return initialize_pipeline(config)
