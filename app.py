@@ -14,6 +14,7 @@ Base.metadata.create_all(bind=engine)
 
 app = Flask(__name__)
 db = SessionLocal()
+case_state = CaseRepository(db)
 
 texts = [
     "My name is John Doe. Email: john.doe@gmail.com. Phone: (212) 555-0199. My friend Anthony Super's number is (516) 467-7941",
@@ -27,17 +28,19 @@ texts = [
     "Please update the record for Kevin Patel — email kevin.patel@protonmail.com, phone (929) 555-1028.",
     "Laura Nguyen prefers email communication at laura.nguyen@fastmail.com but can also be reached at 347-555-4701."
 ]
-for text in texts:
-    filtered = p.detect_and_filter(text=text,threshold=0.50)
-    tokenized_text, entities = p.tokenize(text=text,entities=filtered)
-
-    print(entities)
-    case = create_case_file(original_text=text,tokenized_text=tokenized_text,entities=entities,case_id=uuid.uuid4())
-    saveCase = CaseRepository(db)
-    caseId = saveCase.save_case(case=case, mappings=filtered)
-
-
-
+# for text in texts:
+#     filtered = p.detect_and_filter(text=text,threshold=0.50)
+#     tokenized_text, entities = p.tokenize(text=text,entities=filtered)
+#
+#     print(entities)
+#     case = create_case_file(original_text=text,tokenized_text=tokenized_text,entities=entities,case_id=uuid.uuid4())
+#     saveCase = CaseRepository(db)
+#     caseId = saveCase.save_case(case=case, mappings=filtered)
+key = uuid.UUID("25c190f9-54c5-4839-af13-47afc69df990")
+found_case = case_state.find_case(case_id=key)
+if found_case:
+    print("Case found")
+    case_entities = case_state.find_case_mapping(case_id=key)
 @app.route("/detect", methods=["POST"])
 def detect_pii():
     print("hello")
