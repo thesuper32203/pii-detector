@@ -20,7 +20,7 @@ class CaseRepository:
                 case_id=case.case_id,
                 token=m["token"],
                 entity_type=m["entity_group"],
-                original_value=case.original_text,
+                original_value=case.original_text[m.get("start"):m.get("end")],
                 score=float(m.get("score")),
                 start=m.get("start"),
                 end=m.get("end"),
@@ -28,3 +28,4 @@ class CaseRepository:
 
         self.db.commit()
         return str(case.case_id)
+
