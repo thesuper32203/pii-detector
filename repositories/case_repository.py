@@ -1,7 +1,11 @@
+from typing import Any
+
 from sqlalchemy.orm import Session
 from db.models import CaseRow, PiiMappingRow
-from domain.case_file import CaseFile
 import uuid
+
+from domain.case_file import CaseFile
+
 
 class CaseRepository:
     def __init__(self, db: Session):
@@ -35,6 +39,5 @@ class CaseRepository:
         case = self.db.get(CaseRow, case_id)
         return case
 
-    def find_case_mapping(self, case_id: uuid):
-        mapping = self.db.query(PiiMappingRow).filter(PiiMappingRow.case_id == case_id).order_by(PiiMappingRow.id).all()
-        return mapping
+    def find_case_all_mapping(self, case_id: uuid):
+        return self.db.query(PiiMappingRow).filter(PiiMappingRow.case_id == case_id).order_by(PiiMappingRow.id).all()
