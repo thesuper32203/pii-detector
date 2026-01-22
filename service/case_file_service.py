@@ -1,5 +1,5 @@
 from db.database_init import SessionLocal
-from db.models import PiiMappingRow
+from db.tables import PiiMappingRow
 from repositories.case_repository import CaseRepository
 from uuid import UUID
 import re

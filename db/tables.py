@@ -31,3 +31,4 @@ class PiiMappingRow(Base):
 
     start: Mapped[int | None] = mapped_column(Integer, nullable=True)
     end: Mapped[int | None] = mapped_column(Integer, nullable=True)
+

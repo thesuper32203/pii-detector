@@ -1,7 +1,7 @@
 from typing import Any
 
 from sqlalchemy.orm import Session
-from db.models import CaseRow, PiiMappingRow
+from db.tables import CaseRow, PiiMappingRow
 import uuid
 
 from domain.case_file import CaseFile
